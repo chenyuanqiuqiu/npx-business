@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/killPage/index",
     "pages/login/login",
-    "pages/index/index",
     "pages/jiFenPage/index",
     "pages/raffle/index",
     "pages/shopDetail/index",
@@ -37,11 +37,7 @@
       "root": "subpackageA",
       "name": "subpackageA",
       "pages": [
-        "pages/mapList/index",
-        "pages/goods-details/cps-jd",
-        "pages/goods-details/cps-pdd",
-        "pages/goods-details/cps-taobao",
-        "pages/order-list/cps"
+        "pages/mapList/index"
        
       ]
     }
