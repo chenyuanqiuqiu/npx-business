@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "enablePullDownRefresh":true,
+  "usingComponents": {
+    "poster": "wxa-plugin-canvas/poster"
+  }
+}

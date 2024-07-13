@@ -1,0 +1,8 @@
+{
+  "usingComponents":{
+    "product":"/components/productDemo/product",
+    "detail":"/components/goodsDetail/detail"
+  },
+  "enablePullDownRefresh": true
+  
+}

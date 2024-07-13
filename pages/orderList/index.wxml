@@ -1,0 +1,36 @@
+<van-sticky>
+  <van-tabs wx:if='{{!hasRefund}}' active="{{ tabIndex }}" bind:change="statusTap">
+    <van-tab wx:for="{{statusType}}" wx:key="index" title="{{item.label}}" info="{{badges[index] ? badges[index] : ''}}" />
+  </van-tabs>
+</van-sticky>
+<view class="container">
+  <van-empty wx:if="{{ !orderList }}" description="暂无订单" />
+  <view class="order-list" hidden="{{orderList ? false : true}}">
+    <view class="a-order" wx:for="{{orderList}}" wx:key="index">
+      <van-cell title="{{item.orderNumber}}" value="{{item.statusStr}}" is-link />
+      <view class="goods-price">
+        共 {{item.goodsNumber}} 件商品 合计：
+        <text class="p" wx:if="{{item.score <= 0}}">¥ {{item.amountReal}}</text>
+        <text class="p" wx:if="{{item.score > 0}}">¥ {{item.amountReal}} + {{item.score}} 积分</text>
+      </view>
+      <view class="goods-info">
+        <view class="goods-des">
+          <view class="remark" wx:if="{{item.remark && item.remark != ''}}">{{item.remark}}</view>
+          <view>{{item.dateAdd}}</view>
+        </view>
+      </view>
+      <view class="price-box">
+        <view class="btn" hidden="{{item.status==0? false : true}}" bindtap="cancelOrderTap" data-id="{{item.id}}">
+          取消订单
+        </view>
+        <view class="btn active" hidden="{{item.status==0? false : true}}" data-id="{{item.id}}" data-money="{{item.amountReal}}" data-score="{{item.score}}">
+          马上付款
+        </view>
+        <view class="btn active" hidden="{{(item.status==0 || item.status==-1) ? true : false}}" bindtap="refundApply" data-id="{{item.id}}" data-amount='{{item.amountReal}}'>
+          退换货
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="safeAreaOldMarginBttom safeAreaNewMarginBttom"></view>
+</view>

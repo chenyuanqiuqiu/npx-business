@@ -1,0 +1,15 @@
+<van-empty wx:if="{{ !addressList }}" description="暂无收货地址" />
+<view class="list" wx:for="{{addressList}}" wx:key="id">
+  <view class="aaa">
+    <view class="pad_view">
+      <view class="f_size_28">{{item.provinceStr}}  {{item.cityStr}}  {{item.address}}</view>
+      <view class="f_size_22 color_717171">{{item.linkMan}} {{item.mobile}}</view>
+    </view>
+    <!-- <van-cell custom-class="aaa" title="{{item.linkMan}} {{item.mobile}}" data-id="{{item.id}}" label="{{item.address}}" bind:click="selectTap" data-id="{{item.id}}" /> -->
+  </view>
+  <iconfont name='bianjilan' class="icon_tap" size='44' bind:tap="editAddess" data-id="{{item.id}}"></iconfont>
+</view>
+<view style="height:32rpx"></view>
+<view class="safe-bottom-box">
+  <van-button type="primary" icon="add-o" block bind:click="addAddess">新增收货地址</van-button>
+</view>

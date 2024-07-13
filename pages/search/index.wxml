@@ -1,0 +1,15 @@
+<van-search placeholder="请输入搜索关键词" focus bind:search="search" use-right-icon-slot>
+    <van-icon slot="right-icon" name="scan" bind:click="searchscan" />
+</van-search>
+<van-empty wx:if="{{ !list || list.length == 0 }}" description="暂无历史搜索" />
+<view class="mmm_detail" wx:if="{{ list && list.length > 0 }}">
+    <view class="history_l">
+        <view>历史搜索</view>
+        <view class="iconfont icon-shanchu his_one" bindtap="onClose"></view>
+    </view>
+    <view class="uu_view d-flex">
+        <view class="iuu_text" wx:for="{{list}}" wx:key="{{index}}" data-name="{{item}}" bind:tap="toSearch">
+            {{item}}
+        </view>
+    </view>
+</view>

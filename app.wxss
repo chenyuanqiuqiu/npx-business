@@ -1,0 +1,160 @@
+/**app.wxss**/
+page {
+  background-color: #f8f8f8;
+}
+.flex_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 
+.padding_rf{
+  padding: 0px 12rpx;
+}
+.p_lf_20{
+  padding: 0 20rpx;
+}
+.display_f{
+  display: flex;
+}
+.flex-1{
+  flex: 1;
+}
+.bg_c_c1af52{
+  background-color: #c1af52;
+}
+.d-flex{
+  display: flex;
+  align-items: center;
+ }
+ .j_bw{
+  justify-content: space-between;
+ }
+ .j_center{
+  justify-content: center;
+ }
+ .color_ea7800{
+  color: #ea7800;
+ }
+.p_r_11{
+  padding-right: 11rpx;
+}
+.flex_data{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.con_font{
+  font-size: 26rpx;
+  color: black;
+}
+.font-32{
+  font-size: 32rpx;
+}
+.font-e7e8ea{
+  color: #e7e8ea ;
+}
+.color_f9f9f9{
+  color: #f9f9f9;
+}
+.color_5f5a5a{
+  color: #5f5a5a;
+}
+.color_676565{
+  color: #676565;
+}
+.color_red{
+  color: red;
+}
+.font_blod{
+  font-weight: bold;
+}
+.flex-w{
+  flex-wrap: wrap;
+}
+.p_b_30{
+  padding-bottom: 30rpx;
+}
+.f-size_30{
+  font-size: 30rpx;
+}
+.neb_bu{
+  margin-top: 20rpx;
+}
+.no-data {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.vw100 {
+  width: 100vw !important;
+}
+.b_c_eaeaea{
+  background-color: #eaeaea;
+}
+.b_c_ffff{
+  background-color: white;
+}
+.t_center{
+  text-align: center;
+}
+.b_c_red{
+  background-color: rgb(246, 43, 43);
+}
+.color_fff{
+  color: #ffffff;
+}
+.color_b1b1b1{
+  color: #b1b1b1;
+}
+.color_717171{
+  color: #717171;
+}
+.color_fd5e00{
+  color: #fd5e00;
+}
+.color_646566{
+  color: #646566;
+}
+.color_115eef {
+  color: #115eef;
+}
+.f_size_20{
+  font-size: 20rpx;
+}
+.f_size_22{
+  font-size: 22rpx;
+}
+.f_size_28{
+  font-size: 28rpx;
+}
+.f_size_26{
+  font-size: 26rpx;
+}
+.f_size_25{
+  font-size: 25rpx;
+}
+.f_size_24{
+  font-size: 24rpx;
+}
+.f_size_30{
+  font-size: 30rpx;
+}
+.f_size_40{
+  font-size: 40rpx;
+}
+.text_detion{
+  color:#aaa;
+  text-decoration:line-through
+}
+.w-100{
+  width: 100%;
+}
+.lft_p_20{
+  padding-left: 20rpx;
+}
+.h_100{
+  height: 100%;
+}
+@import './static/iconfonts.wxss'

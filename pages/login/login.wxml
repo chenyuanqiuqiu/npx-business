@@ -1,0 +1,16 @@
+<view class="apifmLogin">
+    <view class="s-b">
+        <view class="s-l-b">
+            <iconfont name='a-shangdianshangchengxiaomaibujianzhufangzi' class="icon_tap" size='174'></iconfont>
+            <button type="primary" class="login_btn" bind:tap="loginConfirm">授权登录</button>
+        </view>
+        <view class="s-t-b">
+            <van-checkbox value="{{ checked }}" shape="square" icon-size="15px" bind:change="onChange"></van-checkbox>
+            <view>
+                <text>我已阅读并同意</text>
+                <text class="color_115eef">《微商用户协议》，《微商隐私政策》，《微商会员协议》</text>
+            </view>
+        </view>
+    </view>
+    <van-toast id="van-toast" />
+</view>

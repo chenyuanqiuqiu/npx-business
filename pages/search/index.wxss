@@ -1,0 +1,26 @@
+/* pages/search/index.wxss */
+page{
+    background-color: #ffffff;
+}
+.history_l{
+    display: flex;
+    justify-content: space-between;
+    font-size: 30rpx;
+    font-weight: 500;
+    margin-bottom: 25rpx;
+}
+.his_one{
+    font-size: 35rpx;
+}
+.mmm_detail{
+    margin: 25rpx;
+}
+.iuu_text{
+    font-size: 24rpx;
+    color: #777777;
+    padding: 6rpx 25rpx;
+    background: #ececec;
+    border-radius: 24rpx;
+    margin-right: 30rpx;
+}
+.uu_view{}

@@ -1,0 +1,9 @@
+<!-- pages/list/list.wxml -->
+<view class="product_dt p_b_15">
+    <image class="img_one" src='{{list.pic}}' data-url='' />
+    <view class="font_blod control_w">{{list.name}}</view>
+    <view class="pro_line" wx:if="{{isShow}}">
+        <iconfont name='miaosha' class="icon_tap" size='38'></iconfont>
+        <view class="font-g">￥{{list.minPrice}}</view>
+    </view>
+</view>

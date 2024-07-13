@@ -1,0 +1,139 @@
+<!-- index.wxml -->
+<view class="con_font">
+  <!-- 悬浮搜索框 -->
+  <block wx:if="{{isSticky}}">
+    <view class="xufu_content" id='isSticky'>
+      <view class='search_sf' bindtap="goSearch">
+        <view class='iconfont icon-sousuo'></view>
+        <view class="f_size_24">请输入搜索关键词</view>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{!isSticky}}">
+    <view class='search padding_rf flex_center'>
+      <view class='search_item' bind:tap="getToLocation">
+        <view class='iconfont icon-shouhuodizhi icon_white'></view>
+        <view class='dizhi_label'>{{addressNow?addressNow:"获取定位失败"}}</view>
+        <view class="iconfont icon-jiantou2 icon_white"></view>
+      </view>
+      <view class='search_item1' bindtap="goSearch">
+        <view class='iconfont icon-sousuo'></view>
+        <view class="f_size_24">请输入商品名称</view>
+      </view>
+    </view>
+  </block>
+  <view class="main_1">
+    <view class="p_lf_20 swiper1 content_2">
+      <swiper class="swiper1" indicator-dots="{{false}}" indicator-active-color="#fff" autoplay>
+        <swiper-item wx:for="{{banners}}" wx:key="id">
+          <image class="image_item" mode="aspectFill" bindtap="tapBanner" data-id="{{item.id}}" src="{{item.picUrl}}" />
+        </swiper-item>
+      </swiper>
+    </view>
+    <view class="content_1">
+      <view class="content_item item_1">
+        <view class="part_one" wx:for="{{categories}}" wx:key="value" data-kindValue="{{item.id}}" data-page="detail" bindtap="tabClick">
+          <image class="img_car" src="{{item.icon}}"></image>
+          <view class="color_676565 flex_center">{{item.name}}</view>
+        </view>
+        <view class="part_one" wx:for="{{cmsCategories}}" wx:key="value" data-kindValue="{{item.key}}" data-page="page" bindtap="tabClick">
+          <image class="img_car" src="{{item.icon}}"></image>
+          <view class="color_676565 display_f">{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="content_3" wx:if="{{imageList && imageList.length>0}}">
+      <swiper class="swiper1" indicator-dots="true" indicator-active-color="#fff" autoplay circular>
+        <swiper-item wx:for="{{imageList}}" wx:key="id">
+          <image class="image_item" mode="aspectFill" bindtap="tapBanner" data-id="{{item.id}}" src="{{item.imgurl}}" />
+        </swiper-item>
+      </swiper>
+    </view>
+    <view class="content_4 d-flex j_bw" onTap="handleTap('kefu')">
+      <view class="flex_center">
+        <view class="iconfont icon-jinritoutiao icon_4"></view>
+        <view class="iconfont icon-laba icon_4"></view>
+        <text class="color_676565">会员卡公告通知</text>
+      </view>
+      <view>
+        <view class="iconfont icon-jiantou2 color_red"></view>
+      </view>
+    </view>
+  </view>
+  <!-- 为您优选模块 -->
+  <view class='content_4 img_bac'>
+    <view class="d-flex j_bw title1">
+      <view class="font_blod f-size_30">
+        <view class="iconfont icon-xianshimiaosha-shouye color_f9f9f9"></view>
+      </view>
+      <view class="d-flex color_f9f9f9" bindtap="topage">
+        <text>限量秒杀</text>
+        <view class="iconfont icon-jiantou2"></view>
+      </view>
+    </view>
+    <view class="flex-w d-flex j_bw b_c_ffff img_00" wx:if="{{swiperList && swiperList.length>0}}">
+      <swiper class="swiper2 vw100" style="height:260rpx" scroll-x="{{true}}" indicator-dots="{{false}}" vertical="true" autoplay="{{true}}" circular>
+        <swiper-item wx:key="index" class="flex-w d-flex j_bw swiper_item" wx:for="{{swiperList}}" wx:for-item="list">
+          <view class="item_one" wx:for="{{list}}" wx:key="id" bindtap="toDetail" data-id="{{item.id}}">
+            <product isShow="{{true}}" list="{{item}}"></product>
+          </view>
+        </swiper-item>
+      </swiper>
+    </view>
+  </view>
+  <!-- 天天特价 -->
+  <view class='content_4' wx:if="{{showContent}}">
+    <view class="d-flex j_bw p_b_30">
+      <view class="font_blod m_l_260 f-size_30">天天特价</view>
+      <view class="d-flex color_676565">
+        <text>更多</text>
+        <view class="iconfont icon-jiantou2"></view>
+      </view>
+    </view>
+    <view class="flex-w d-flex j_bw">
+      <view class="item_two" wx:for="{{[1,2]}}" wx:key="index">
+        <product isShow="{{true}}"></product>
+      </view>
+    </view>
+  </view>
+  <!-- 附近商家 -->
+  <view class="content_5">
+    <view class="font_blod f-size_30 neb_bu title1">附近商家</view>
+    <detail bind:getItem="getItem"></detail>
+  </view>
+  <view style="height:200px">
+    <scroll-view class="scroll-view" scroll-y="true" bindscrolltolower="goodsGoBottom">
+      <!-- <view class="refresh-view" hidden="{{!isRefreshing}}">正在刷新...</view> -->
+      <van-card custom-class="card_class" tag="{{item.recommendName}}" thumb="{{ item.pic }}" wx:for="{{shopList}}" wx:key="id" data-id="{{item.id}}" title-class="f_size_28 title_ku" catchtap="goShopDetail">
+        <view slot="desc">
+          <view class="display_f j_bw">
+            <view>
+              <text class="color_ea7800 f_size_28 font_blod">4.8分</text>
+              <text class="color_717171 f_size_25 lft_p_20">月销{{item.numberOrder}}</text>
+            </view>
+            <view>起送￥{{item.serviceAmountMin ? item.serviceAmountMin : 0}}</view>
+          </view>
+          <view class="desc_class">
+            <view>营业时间：{{item.openingHours}}</view>
+          </view>
+        </view>
+        <view slot="title" class="f_size_28 d-flex">
+          <text class="title_ku">{{item.name}}</text>
+          <view class="iconfont icon-jiantou2 font_blod"></view>
+        </view>
+        <view slot="tags">
+          <view class="display_f">
+            <view wx:if="{{item.openWaimai}}" class="tags_class tag">支持配送</view>
+            <view wx:if="{{item.openZiqu}}" class="tags_class tag">支持自取</view>
+          </view>
+        </view>
+      </van-card>
+    </scroll-view>
+  </view>
+</view>
+<van-overlay show="{{ adPositionIndexPop }}">
+  <view class="adPositionIndexPop">
+    <image src="{{ adPositionIndexPop.val }}" mode="widthFix" bindtap="clickAdPositionIndexPop"></image>
+    <van-icon custom-class="close" name="close" size="64rpx" color="#fff" bind:click="closeAdPositionIndexPop" />
+  </view>
+</van-overlay>

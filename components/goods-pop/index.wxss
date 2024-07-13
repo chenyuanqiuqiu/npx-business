@@ -1,0 +1,53 @@
+.sku-container {
+  box-sizing: border-box;
+  width: 100vw;
+  padding: 32rpx 32rpx 0 32rpx;
+}
+.sku-container .sku {
+  border-bottom: 1rpx solid #eee;
+  padding-bottom: 24rpx;
+  margin-bottom: 16rpx;
+}
+.sku-container .sku .t {
+  color: #333;
+}
+.sku-container .sku .items {
+  display: flex;
+  flex-wrap: wrap;
+}
+.dtext-two{
+  font-size: 24rpx;
+  padding-bottom: 20rpx;
+  width: 95%;
+  color: #b1b1b1;
+   overflow: hidden; /* 确保超出容器的文本被裁剪 */
+   white-space: nowrap; /* 确保文本在一行内显示 */
+  text-overflow: ellipsis; /* 显示省略号来表示文本被截断 */
+}
+.margin_bo{
+  margin-bottom: 80rpx;
+}
+.sku-container .sku .items .text_change {
+  padding: 8rpx 16rpx;
+  border: 1rpx solid #eee;
+  color: #666;
+  margin: 24rpx 24rpx 0 0;
+  font-size: 26rpx;
+  border-radius: 8rpx;
+}
+.sku-container .sku .items .active {
+  border: 1rpx solid #e64340;
+  color: #e64340;
+}
+.sku-container .num {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+.sku-container .num .t {
+  color: #333;
+}
+.btn {
+  padding: 32rpx;
+}

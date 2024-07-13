@@ -1,0 +1,8 @@
+{
+  "usingComponents": {},
+  "enablePullDownRefresh": true,
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "店铺详情",
+  "navigationBarBackgroundColor": "#c1af52",
+  "navigationStyle": "custom"
+}

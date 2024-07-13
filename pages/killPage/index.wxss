@@ -1,0 +1,86 @@
+/* pages/killPage/index.wxss */
+page{
+    height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background: #f95656;
+    flex: 1;
+}
+.dwei{
+    position: sticky;
+}
+.contain_one{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.cont_1{
+    display: flex;
+    position: sticky;
+    background: #f95656;
+    border-bottom-left-radius: 30rpx;
+    width: 100%;
+    padding-top: 20rpx;
+    border-bottom-right-radius: 30rpx;
+}
+.price_g{
+    padding: 12rpx 25rpx;
+}
+.right_now{
+    padding: 12rpx 25rpx;
+    background: #f18615;
+    color: white;
+    border-top-right-radius: 30rpx;
+    border-bottom-right-radius: 30rpx;
+}
+.huaa{
+    color: #aba9a7;
+    text-decoration: line-through;
+}
+.price_class{
+    width: 95%;
+    align-items: center;
+    background: #ffe3e3;
+    border-radius: 20rpx;
+    display: flex;
+    font-weight: 500;
+    color: #f18615;
+    justify-content: space-between;
+}
+.con_inner1{
+    width: 210rpx;
+    padding: 8rpx 11rpx;
+    margin-bottom: 20rpx;
+    margin-left: 85rpx;
+    text-align: center;
+    height: 75rpx;
+    color: #ffffff;
+}
+.active_click{
+    background: #fdfdfd;
+    color: #f99905;
+    font-weight: 600;
+    border-radius: 23rpx;
+}
+
+.float-btn {
+    position: fixed;
+    z-index: 888;
+    right: 26rpx;
+    bottom: 155rpx;
+    width: 100rpx;
+    height: 93rpx;
+    opacity: 0.7;
+    background: #969696;
+    text-align: center;
+    line-height: 110rpx;
+    border-radius: 20rpx;
+  }
+  .scrool{
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+    background-color: #fff;
+  }

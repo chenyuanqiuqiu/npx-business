@@ -1,0 +1,11 @@
+<van-tabs active="{{ active }}" bind:change="tabClick">
+  <van-tab wx:for="{{tabs}}" wx:key="*this" title="{{item}}" />
+</van-tabs>
+<van-cell-group wx:if="{{activeIndex == 0}}">
+  <van-empty wx:if="{{!cashlogs}}" description="暂无资金明细" />
+  <van-cell wx:for="{{cashlogs}}" wx:key="index" title="{{ item.typeStr }}" label="{{ item.dateAdd }}" value="{{ item.amount }}" />
+</van-cell-group>
+<van-cell-group wx:if="{{activeIndex == 1}}">
+  <van-empty wx:if="{{!withDrawlogs}}" description="暂无充值记录" />
+  <van-cell wx:for="{{withDrawlogs}}" wx:key="index" title="{{ item.statusStr }}" label="{{ item.dateAdd }}{{ item.rejectionReason ? ' 驳回原因：' + item.rejectionReason : '' }}" value="{{ item.money }}" />
+</van-cell-group>

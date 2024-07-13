@@ -1,0 +1,104 @@
+<view class="main_box">
+    <view class="header-box">
+        <view class="header-box-left">
+            <button class="avatar" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+                <image class="avatar-img" src="{{ apiUserInfoMap.base.avatarUrl ? apiUserInfoMap.base.avatarUrl : '/images/personImg.png' }}" mode="aspectFill"></image>
+            </button>
+            <view class="r">
+                <view class="f-size_32 font_blod" bindtap="editNick">
+                    Hello, {{ apiUserInfoMap.base.nick ?  apiUserInfoMap.base.nick : '点击设置昵称' }}
+                </view>
+                <view wx:if="{{ apiUserInfoMap.userLevel }}" class="user-level">
+                    <iconfont name='huangjinhuiyuan' class="icon_tap" size='34'></iconfont>
+                    <text class="level_hj">{{ apiUserInfoMap.userLevel.name }}</text>
+                </view>
+            </view>
+        </view>
+        <view class="user-code" bindtap="goUserCode">
+            <iconfont name='shengchenghuiyiqiandaomaxiaoicon' class="icon_tap" size='60'></iconfont>
+            <view class="txt">会员码</view>
+        </view>
+    </view>
+    <view class="asset">
+        <view class='item' bindtap='goAsset'>
+            <view class="amount">{{balance}}</view>
+            <view>余额</view>
+        </view>
+        <view class='item right' bindtap='goScore'>
+            <view class="amount">{{score}}</view>
+            <view>积分</view>
+        </view>
+        <view class='item right' bindtap="gogrowth">
+            <view class="amount">{{growth}}</view>
+            <view>优惠券</view>
+        </view>
+    </view>
+</view>
+<view class="space van-hairline--bottom"></view>
+<van-cell-group wx:if="{{ myCards }}" title="我的会员卡">
+    <van-cell wx:for="{{ myCards }}" wx:key="id" center title="{{ item.cardInfo.name }}" label="{{ item.dateEnd }} 到期" value-class="v-c" value="剩余: {{ item.amount }}" is-link url="/pages/card/logs?id={{ item.id }}" />
+</van-cell-group>
+<van-cell title="我的订单" value="更多" border="{{false}}" is-link url="/pages/orderList/index" />
+<van-grid clickable column-num="5">
+    <van-grid-item use-slot badge="{{count_id_no_pay}}" bindtap='goOrder' data-type="0">
+        <iconfont name='daifukuan' class="icon_tap" size='50'></iconfont>
+        <view class="f_size_26 order_class">待付款</view>
+    </van-grid-item>
+    <van-grid-item use-slot badge="{{count_id_no_transfer}}" bindtap='goOrder' data-type="1">
+        <iconfont name='daishouhuo2' class="icon_tap" size='50'></iconfont>
+        <view class="f_size_26 order_class">待发货</view>
+    </van-grid-item>
+    <van-grid-item use-slot badge="{{count_id_no_confirm}}" bindtap='goOrder' data-type="2">
+        <iconfont name='daishouhuo1' class="icon_tap" size='50'></iconfont>
+        <view class="f_size_26 order_class">待收货</view>
+    </van-grid-item>
+    <van-grid-item use-slot badge="{{count_id_no_reputation}}" bindtap='goOrder' data-type="3">
+        <iconfont name='daipingjia' class="icon_tap" size='50'></iconfont>
+        <view class="f_size_26 order_class">待评价</view>
+    </van-grid-item>
+    <van-grid-item use-slot bindtap='goOrder' data-type="99">
+        <iconfont name='tuikuanshouhou' class="icon_tap" size='50'></iconfont>
+        <view class="f_size_26 order_class">售后</view>
+    </van-grid-item>
+</van-grid>
+<view class="space van-hairline--bottom"></view>
+<view class="geduan"></view>
+<view class="space van-hairline--bottom"></view>
+<van-cell title="常用功能" />
+<van-grid clickable>
+    <van-grid-item use-slot url="/pages/asset/index">
+        <iconfont name='zijinmingxi' class="icon_tap" size='50'></iconfont>
+        <view class="f_size_26 order_class">资金明细</view>
+    </van-grid-item>
+    <van-grid-item use-slot url="/pages/coupons/index">
+        <iconfont name='youhuiquan' class="icon_tap" size='50'></iconfont>
+        <view class="f_size_26 order_class">优惠券</view>
+    </van-grid-item>
+    <van-grid-item use-slot url="/pages/scoreExcharge/index">
+        <iconfont name='jifen11' class="icon_tap" size='50'></iconfont>
+        <view class="f_size_26 order_class">兑积分</view>
+    </van-grid-item>
+    <van-grid-item wx:if="{{ show_score_sign == 1 }}" use-slot url="/pages/sign/index">
+        <iconfont name='qiandao' class="icon_tap" size='50'></iconfont>
+        <view class="f_size_26 order_class">签到赚积分</view>
+    </van-grid-item>
+    <van-grid-item use-slot url="/pages/my/infoMenu">
+        <iconfont name='gerenxinxi_1' class="icon_tap" size='50'></iconfont>
+        <view class="f_size_26 order_class">个人信息</view>
+    </van-grid-item>
+    <van-grid-item use-slot url="/pages/my/setting">
+        <iconfont name='shezhi' class="icon_tap" size='50'></iconfont>
+        <view class="f_size_26 order_class">系统设置</view>
+    </van-grid-item>
+    <van-grid-item use-slot url="/pages/selectAddress/index">
+        <iconfont name='shouhuodizhi1' class="icon_tap" size='50'></iconfont>
+        <view class="f_size_26 order_class">收货地址</view>
+    </van-grid-item>
+    <van-grid-item use-slot url="/pages/idCheck/index">
+        <iconfont name='huiyuan' class="icon_tap" size='50'></iconfont>
+        <view class="f_size_26 order_class">会员认证</view>
+    </van-grid-item>
+</van-grid>
+<van-dialog use-slot title="修改昵称" show="{{ nickShow }}" show-cancel-button bind:confirm="_editNick">
+    <van-field model:value="{{ nick }}" type="nickname" placeholder="请输入昵称" size="large" clearable />
+</van-dialog>

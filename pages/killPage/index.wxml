@@ -1,0 +1,41 @@
+<view class="contain_one">
+    <view class="dwei">
+        <view class="cont_1">
+            <view class="con_inner1 {{key=='one' ? 'active_click' :''}}" bindtap="handelClick" data-key="one">
+                <view class="f_size_28">6天01:20:23</view>
+                <view class="f_size_22">热抢中</view>
+            </view>
+            <view class="con_inner1 {{key=='two' ? 'active_click' :''}}" bindtap="handelClick" data-key="two">
+                <view class="f_size_28">7月1日</view>
+                <view class="f_size_22">即将开始</view>
+            </view>
+        </view>
+    </view>
+    <block wx:if="{{key=='one'}}">
+        <scroll-view class="w-100 h_100 scrool" scroll-y="{{true}}" scroll-top="0" bindscrolltolower="goodsGoBottom">
+            <van-empty wx:if="{{!list}}" description="暂无商品" />
+            <block wx:if="{{list}}">
+                <van-card wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" custom-class="out_card" title-class="dtext-one" desc="{{item.characteristic}}" desc-class="dtext-two" tag="{{item.gotScore ? item.gotScore + '积分' : ''}}" title="{{item.name}}" thumb="{{item.pic}}">
+                    <view slot="price" class="price_class">
+                        <view class="price_g">
+                            <text class="f_size_22">￥</text>
+                            <text class="f_size_30">{{item.originalPrice}}</text>
+                            <text class="f_size_22 huaa">￥{{item.originalPrice}}</text>
+                        </view>
+                        <view class="right_now" data-id="{{item.id}}" bind:tap="addShopCar">
+                            <text>马上抢</text>
+                        </view>
+                    </view>
+                </van-card>
+            </block>
+        </scroll-view>
+    </block>
+    <block wx:else>
+        <scroll-view class="w-100 h_100 scrool" scroll-y="{{true}}" scroll-top="0" bindscrolltolower="goodsGoBottom">
+            <van-empty description="暂无商品" />
+        </scroll-view>
+    </block>
+</view>
+<view class="float-btn" catchtap="toCart">
+    <van-icon name="cart-o" info="{{info>0 ? info : ''}}" size="30px" color="#ffffff" />
+</view>

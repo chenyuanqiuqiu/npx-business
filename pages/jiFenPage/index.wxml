@@ -1,0 +1,4 @@
+<!-- pages/jiFenPage/index.wxml -->
+<view>
+    <image class="image_item" mode="aspectFill" src="/images/jifen.jpeg" />
+</view>

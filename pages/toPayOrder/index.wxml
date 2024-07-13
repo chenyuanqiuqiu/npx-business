@@ -1,0 +1,196 @@
+<van-tabs bind:change="radioChange" active="{{ active }}">
+    <van-tab title="配送到家" name="kd">
+        <van-cell icon="location-o" wx:if="{{curAddressData}}" value="共{{addressLength}}个" is-link title="可选用地址" border="{{ false }}" bind:click="openAddress"></van-cell>
+        <van-cell wx:if="{{!curAddressData}}" title="新增收货地址" is-link bind:click="addAddress" />
+        <van-cell-group>
+            <van-field value="{{ curAddressData.linkMan }}" label="收货人" placeholder="请输入收货人" border="{{ false }}" />
+            <van-field value="{{ curAddressData.mobile }}" label="手机号码" placeholder="请输入手机号码" border="{{ false }}" type='number' />
+            <van-field label="收货地址" custom-class="j_bw display_f" border="{{ false }}" value="{{curAddressData.name}}">
+                <van-button slot="button" size="small" type="primary" bind:click="goMap">
+                    选择
+                </van-button>
+            </van-field>
+            <van-field value="{{ curAddressData.address }}" label="楼号门牌" placeholder="例如：1栋101" border="{{ false }}" />
+        </van-cell-group>
+        <van-cell></van-cell>
+    </van-tab>
+    <van-tab title="门店自提" name="zq">
+        <picker wx:if="{{ shops}}" bindchange="shopSelect" value="{{shopIndex}}" range="{{shops}}" range-key="name">
+            <van-cell title="选择自提门店" border="{{ false }}" value-class="cva_class" title-class="ti_class" value="{{shopIndex == -1 ? '请选择':shops[shopIndex].name}}" required is-link />
+        </picker>
+        <van-cell wx:if="{{shopIndex != -1}}" title="门店电话" title-class="color_646566" value-class="cva_class" value="{{shops[shopIndex].linkPhone}}" bind:click="callMobile" />
+        <van-cell wx:if="{{ shopIndex != -1}}" title="门店地址" custom-class="j_bw display_f" title-class="ti_class" value-class="cva_class" value="{{shops[shopIndex].address}}" />
+        <van-cell-group>
+            <van-field model:value="{{ name }}" label="联系人" clearable required placeholder="请输入联系人" />
+            <van-field model:value="{{ mobile }}" label="联系电话" type="number" clearable required placeholder="请输入手机号码">
+                <van-button slot="button" size="small" type="danger" open-type="getPhoneNumber" bind:getphonenumber="getPhoneNumber">
+                    自动获取
+                </van-button>
+            </van-field>
+            <view wx:if="{{shopCarType == 0}}" class="row-box">
+                <view class="row-label">订单备注</view>
+                <view class="right-text">
+                    <input bindinput="remarkChange" type="text" class="liuyan" placeholder="如需备注请输入" />
+                </view>
+            </view>
+        </van-cell-group>
+    </van-tab>
+</van-tabs>
+<van-popup show="{{showPopup}}" position="bottom" custom-style="height:45%" bind:close="onClose" closeable close-icon-position="top-left">
+    <van-cell-group>
+        <van-cell>
+            <view class="adclass">可用地址</view>
+        </van-cell>
+        <van-cell wx:for="{{addressList}}" wx:key="{{item.id}}">
+            <van-radio-group value="{{ radioChecked }}" bind:change="onChange">
+                <van-radio name="{{item.id}}">
+                    <view class="flexmain">
+                        <view>
+                            {{item.provinceStr}}{{item.cityStr}}{{item.areaStr}}{{item.address}}
+                        </view>
+                        <view class="f_size_24 color_717171 t_f_v">
+                            <text class="pd_15">{{item.linkMan}}</text>
+                            <text>{{item.mobile}}</text>
+                        </view>
+                    </view>
+                </van-radio>
+            </van-radio-group>
+        </van-cell>
+    </van-cell-group>
+</van-popup>
+<block wx:if="{{ bindMobileStatus == 2 }}">
+    <block wx:if="{{ orderType != 'buyNow' }}">
+        <!-- 购物车 -->
+        <van-cell-group wx:for="{{shopList}}" wx:for-item="shop" wx:for-index="shopIndex" wx:key="id" title="{{ shop.name }}">
+            <van-card wx:for="{{goodsList}}" wx:key="index" wx:if="{{ item.shopId == shop.id }}" num="{{item.number}}" price="{{item.price}}" title="{{item.name}}" thumb="{{ item.pic }}" centered>
+                <view slot="desc">
+                    {{item.label}}
+                    <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
+                        {{option.optionName}}:{{option.optionValueName}}
+                    </block>
+                    <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">
+                        {{option.pname}}:{{option.name}}
+                    </block>
+                </view>
+            </van-card>
+            <view class="peisong-way" hidden="{{ shop.hasNoCoupons }}">
+                <view class="row-box" style="border-bottom:none;">
+                    <view class="row-label t">使用优惠券</view>
+                </view>
+                <picker data-sidx="{{ shopIndex }}" bindchange="bindChangeCouponShop" range="{{ shop.coupons }}" range-key="nameExt">
+                    <view class="row-box" style="border-bottom:none;">
+                        <view class="row-label">{{ shop.curCouponShowText }}</view>
+                        <image class="next" src="/images/icon/next.png"></image>
+                    </view>
+                </picker>
+            </view>
+        </van-cell-group>
+    </block>
+    <block wx:else>
+        <!-- 立即购买 -->
+        <van-card wx:for="{{goodsList}}" wx:key="index" num="{{item.number}}" price="{{item.price}}" title="{{item.name}}" thumb="{{ item.pic }}" centered>
+            <view slot="desc">
+                {{item.label}}
+                <block wx:for="{{item.sku}}" wx:for-item="option" wx:key="index">
+                    {{option.optionName}}:{{option.optionValueName}}
+                </block>
+                <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">
+                    {{option.pname}}:{{option.name}}
+                </block>
+            </view>
+        </van-card>
+    </block>
+    <view class="container-box cell-group">
+        <view class="peisong-way">
+            <van-cell wx:if="{{ orderPeriod_open == 1 }}" title="订阅">
+                <view slot="">
+                    <radio-group bindchange="dyChange">
+                        <label class="radio">
+                            <radio value="1" checked="{{ dyopen == 1 }}" />
+                            开启
+                        </label>
+                        <label class="radio">
+                            <radio value="0" checked="{{ dyopen == 0 }}" />
+                            关闭
+                        </label>
+                    </radio-group>
+                </view>
+            </van-cell>
+            <van-cell wx:if="{{ dyopen == 1 }}" title="订阅周期">
+                <view slot="">
+                    <radio-group bindchange="dyunitChange">
+                        <label class="radio">
+                            <radio value="0" checked="{{ dyunit == 0 }}" />
+                            天
+                        </label>
+                        <label class="radio">
+                            <radio value="1" checked="{{ dyunit == 1 }}" />
+                            月
+                        </label>
+                        <label class="radio">
+                            <radio value="2" checked="{{ dyunit == 2 }}" />
+                            年
+                        </label>
+                    </radio-group>
+                </view>
+            </van-cell>
+            <van-field wx:if="{{ dyopen == 1 }}" label="订阅间隔" model:value="{{ dyduration }}" type="number" placeholder="请输入数字" input-align="right" use-button-slot>
+                <view slot="button">
+                    {{ dyunit == 0 ? '天': '' }}
+          {{ dyunit == 1 ? '月': '' }}
+          {{ dyunit == 2 ? '年': '' }}
+                </view>
+            </van-field>
+            <van-field wx:if="{{ dyopen == 1 }}" label="订阅次数" model:value="{{ dytimes }}" type="number" placeholder="请输入数字" input-align="right" use-button-slot>
+                <view slot="button">次</view>
+            </van-field>
+            <van-field wx:if="{{ dyopen == 1 }}" label="首次扣费" is-link readonly value="{{ dateStart }}" type="number" placeholder="请输入数字" input-align="right" bind:click-input="dateStartclick" />
+        </view>
+        <view class="peisong-way" hidden="{{hasNoCoupons}}">
+            <view class="row-box" style="border-bottom:none;">
+                <view class="row-label t">使用优惠券</view>
+            </view>
+            <picker bindchange="bindChangeCoupon" range="{{coupons}}" range-key="nameExt">
+                <view class="row-box" style="border-bottom:none;">
+                    <view class="row-label">{{curCouponShowText}}</view>
+                    <image class="next" src="/images/icon/next.png"></image>
+                </view>
+            </picker>
+        </view>
+    </view>
+    <!-- 选择积分抵扣 -->
+    <van-radio-group wx:if="{{ scoreDeductionRules && scoreDeductionRules.length > 0 }}" value="{{ deductionScore }}" bind:change="deductionScoreChange">
+        <van-cell-group title="积分抵扣">
+            <van-cell title="不使用积分" clickable data-name="-1" bind:click="deductionScoreClick">
+                <van-radio slot="right-icon" name="-1" />
+            </van-cell>
+            <van-cell title="自动抵扣" clickable data-name="0" bind:click="deductionScoreClick">
+                <van-radio slot="right-icon" name="0" />
+            </van-cell>
+            <van-cell wx:for="{{scoreDeductionRules}}" wx:key="id" title="使用{{ item.score }}积分抵扣¥{{ item.money }}" clickable data-name="{{ item.score }}" bind:click="deductionScoreClick">
+                <van-radio slot="right-icon" name="{{ item.score }}" />
+            </van-cell>
+        </van-cell-group>
+    </van-radio-group>
+    <van-radio-group wx:if="{{ myCards }}" value="{{ cardId }}" bind:change="cardChange">
+        <van-cell-group title="使用水卡支付">
+            <van-cell title="不使用水卡" clickable data-name="0" bind:click="cardClick">
+                <van-radio slot="right-icon" name="0" />
+            </van-cell>
+            <van-cell wx:for="{{ myCards }}" wx:key="id" title="{{ item.cardInfo.name }} - 剩余：{{ item.amount }}桶" clickable data-name="{{ item.id }}" bind:click="cardClick">
+                <van-radio slot="right-icon" name="{{ item.id }}" />
+            </van-cell>
+        </van-cell-group>
+    </van-radio-group>
+    <van-cell-group wx:if="{{ yunPrice || deductionMoney || couponAmount || balance }}" title="小计">
+        <van-cell wx:if="{{ yunPrice }}" title="运费" value="¥{{yunPrice}}" />
+        <van-cell wx:if="{{deductionMoney}}" title="积分抵扣" value="-¥{{deductionMoney}}" />
+        <van-cell wx:if="{{couponAmount}}" title="优惠金额" value="-¥{{couponAmount}}" />
+        <van-cell wx:if="{{order_pay_user_balance == '1' && balance}}" title="账户余额" value="¥{{balance}}" />
+    </van-cell-group>
+    <view class="bottom-box"></view>
+    <van-submit-bar price="{{ allGoodsAndYunPrice*100 }}" suffix-label="{{ totalScoreToPay ? '+' + totalScoreToPay + ' 积分' : '' }}" button-text="提交订单" loading="{{ btnLoading }}" bind:submit="goCreateOrder" />
+</block>
+<van-popup show="{{ dateStartpop }}" position="bottom">
+    <van-datetime-picker type="datetime" value="{{ currentDate }}" min-date="{{ minDate }}" max-date="{{ maxDate }}" formatter="{{ formatter }}" bind:confirm="dateStartconfirm" bind:cancel="dateStartcancel" />
+</van-popup>

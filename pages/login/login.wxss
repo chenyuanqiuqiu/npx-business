@@ -1,0 +1,25 @@
+/* pages/login/login.wxss */
+page{
+    height: 100vh;
+}
+
+.s-l-b{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 180rpx;
+}
+.login_btn{
+    margin-top: 100rpx;
+    width: 91%;
+    border-radius: 50rpx;
+    height: 83rpx;
+    line-height: 83rpx;
+    margin-bottom: 50rpx;
+}
+.s-t-b{
+    margin: 0 30rpx;
+    display: flex;
+    font-size: 24rpx;
+    color: #969696;
+}

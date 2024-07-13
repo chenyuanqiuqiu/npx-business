@@ -1,0 +1,70 @@
+<view class="page_com">
+    <view class="detail_page">
+        <view class="w_24 {{xlColor? 'color_000000' :'color_676565'}}" bindtap="handelTap" data-type="xl">
+            销量最高
+        </view>
+        <view class="w_24 {{pfColor ? 'color_000000' :'color_676565'}} " bindtap="handelTap" data-type="pf">
+            评分最高
+        </view>
+        <view class="w_24 {{memberColor ? 'color_000000' :'color_676565'}}" bindtap="handelTap" data-type="hy">
+            距离最近
+        </view>
+        <view class="flex_center w_24" bindtap="showPopup">
+            <view class="d-flex">
+                <text class="color_676565">筛选</text>
+                <view class="iodt" wx:if="{{chooseLength>0}}">{{chooseLength}}</view>
+            </view>
+            <view class="iconfont icon-xiangxia"></view>
+        </view>
+    </view>
+    <block>
+        <van-popup show="{{ show }}" position="top" custom-style="height: 82%;" bind:close="onClose">
+            <view class="ps_m">
+                <block>
+                    <view class="d-flex">
+                        <view class="yuanzhu"></view>
+                        <view class="font_blod">配送服务</view>
+                    </view>
+                    <view class="d-flex flex-w">
+                        <view class="tab_i {{item.selected ? 'choose_class' : 'nochoose_class'}}" wx:for="{{peisongList}}" wx:key="id" data-value="{{item.id}}" data-isSelected="{{item.selected}}" data-index="{{index}}" bindtap="handelPeisong">
+                            <iconfont name='{{item.name}}' size='35' class="p_r_11"></iconfont>
+                            <view>{{item.label}}</view>
+                        </view>
+                    </view>
+                </block>
+                <block>
+                    <view class="d-flex mart_10">
+                        <view class="yuanzhu"></view>
+                        <view class="font_blod">商家分类</view>
+                    </view>
+                    <view class="d-flex flex-w">
+                        <view class=" tab_i {{item.selected ? 'choose_class' : 'nochoose_class'}}" wx:for="{{velocityList}}" wx:key="id" data-value="{{item.id}}" data-isSelected="{{item.selected}}" bindtap="handelSudu">
+                            <image src="{{item.icon}}" mode="aspectFill" class="msg_detail" />
+                            <view>{{item.name}}</view>
+                        </view>
+                    </view>
+                </block>
+                <block>
+                    <view class="d-flex mart_10">
+                        <view class="yuanzhu"></view>
+                        <view class="font_blod">优惠活动(单选)</view>
+                    </view>
+                    <view class="d-flex flex-w">
+                        <view class=" tab_i {{item.selected ? 'choose_class' : 'nochoose_class'}}" wx:for="{{preferentialList}}" wx:key="value" data-value="{{item.value}}" data-index="{{index}}" data-isSelected="{{item.selected}}" bindtap="handelYouhui">
+                            <iconfont name='{{item.name}}' size='35' class="p_r_11"></iconfont>
+                            <view>{{item.label}}</view>
+                        </view>
+                    </view>
+                </block>
+                <block>
+                    <view class="d-flex">
+                        <view class="b_c_eaeaea btn_bottom color_676565 font_blod" bindtap="handelCancel">
+                            清除筛选
+                        </view>
+                        <view class="b_c_red btn_bottom color_fff" bindtap="handelConfirm">完成</view>
+                    </view>
+                </block>
+            </view>
+        </van-popup>
+    </block>
+</view>

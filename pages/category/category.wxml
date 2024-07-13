@@ -1,0 +1,60 @@
+<van-sticky>
+    <view class="search-container">
+        <view class="search" style="height:{{navHeight}}px;padding-top:{{navTop}}px">
+            <!-- <view class='iconfont icon-sousuo pad_10'></view> -->
+            <view class="search-placeholder input" style="width:{{menuButtonObject.left-20}}px" bindtap="goSearch">
+                <view class='iconfont icon-sousuo pad_10'></view>
+                <text>请输入商户或商品名称</text>
+            </view>
+        </view>
+    </view>
+</van-sticky>
+<view class="cate_main">
+    <scroll-view class="category-container" scroll-x="{{true}}" scroll-with-animation="{{true}}" scroll-into-view="{{ toView }}">
+        <view class="d-flex tabbar_c adPosition">
+            <view wx:for="{{firstCategories}}" id="day-{{item.id}}" bind:tap="onCategoryClick" wx:key="id" wx:if="{{item.level == 1}}" data-index="{{index}}" data-id="{{item.id}}" class="bar_item">
+                <image src="{{ item.icon }}" mode="aspectFill" class="img_bar {{isActiveId==item.id ? 'b_border' :''}}"></image>
+                <view class="font_blod label_ff {{isActiveId==item.id ? 'label_ff_active' :''}}">
+                    {{item.name}}
+                </view>
+            </view>
+        </view>
+    </scroll-view>
+</view>
+<view class="d-flex new_cont">
+    <scroll-view class="goods-container" scroll-y="{{true}}" scroll-top="{{scrolltop}}">
+        <van-sidebar wx:if="{{ categorySelected.childs && categorySelected.childs.length > 0 }}" custom-class="sidebar-l" bind:change="onSecondCategoryClick">
+            <van-sidebar-item custom-class="change_sliber" title="全部" />
+            <van-sidebar-item custom-class="change_sliber" wx:for="{{categorySelected.childs}}" wx:key="id" data-idx="{{index}}" title="{{ item.name }}" />
+        </van-sidebar>
+    </scroll-view>
+    <view class="llargada h_100">
+        <view class="d-flex saixuan_c">
+            <view class="d-flex {{orderBy==''?'active':''}}" data-val="" bindtap="filter">
+                <text>综合</text>
+            </view>
+            <view class="d-flex {{orderBy=='priceUp'?'active':''}}" data-val="priceUp" bindtap="filter">
+                <text>价格</text>
+                <view class="iconfont icon-shaixuanjiage f_size_24"></view>
+            </view>
+            <view class="d-flex {{orderBy=='ordersDown'?'active':''}}" data-val="ordersDown" bindtap="filter">
+                <text>销量</text>
+            </view>
+        </view>
+        <scroll-view class="w-100 h_100 flex-1" scroll-y="{{true}}" scroll-top="{{scrolltop}}" wx:if='{{onLoadStatus}}' bindscrolltolower="goodsGoBottom">
+            <van-empty wx:if="{{!currentGoods}}" description="暂无商品" />
+            <block wx:if="{{currentGoods}}">
+                <van-card wx:for="{{currentGoods}}" wx:key="id" data-id="{{item.id}}" origin-price="{{item.originalPrice}}" custom-class="out_card" price="{{item.minPrice}}" title-class="dtext-one" desc="{{item.characteristic}}" desc-class="dtext-two" tag="{{item.gotScore ? item.gotScore + '积分' : ''}}" title="{{item.name}}" thumb="{{item.pic}}" bindtap="goodsDetailPage">
+                    <view class="goods-btn" slot="footer">
+                        <van-icon wx:if="{{ item.propertyIds || item.hasAddition }}" name="add" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
+                        <van-icon wx:else name="shopping-cart-o" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
+                    </view>
+                </van-card>
+                <van-divider contentPosition="center" custom-style="line-height: 87rpx;">
+                    这是底部
+                </van-divider>
+            </block>
+        </scroll-view>
+    </view>
+</view>
+<goods-pop skuCurGoodsBaseInfo="{{ skuCurGoods }}" />
