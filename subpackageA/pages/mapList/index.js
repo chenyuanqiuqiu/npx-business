@@ -94,57 +94,61 @@ Page({
     });
     //历史记录
   },
-  getLocationNow() {
-    let that = this;
-    wx.getSetting({
+  getLocation(){
+    wx.getLocation({
+      type: "wgs84",
       success(res) {
-        if (res.authSetting["scope.userLocation"]) {
-          wx.getLocation({
-            type: "wgs84",
-            success(res) {
-              console.log("----地址----", res);
-              wx.setStorageSync("latitude", res.latitude);
-              wx.setStorageSync("longitude", res.longitude);
-              map.getRegeo({
-                location: res.longitude + "," + res.latitude,
-                success(ele) {
-                  //成功后的回调
-                  if (ele.length > 0) {
-                    let data = ele[0].regeocodeData;
-                    that.setData({
-                      city: data.addressComponent.city,
-                      citySelected: data.addressComponent.city,
-                      latitude: res.latitude,
-                      longitude: res.longitude,
-                      saddress: data.formatted_address,
-                      sname: data.addressComponent.province,
-                    });
-                  }
-                },
-                fail: function (error) {
-                  console.error(error);
-                },
-                complete: function (res) {
-                  console.log(res);
-                },
+        console.log("----地址----", res);
+        wx.setStorageSync("latitude", res.latitude);
+        wx.setStorageSync("longitude", res.longitude);
+        map.getRegeo({
+          location: res.longitude + "," + res.latitude,
+          success(ele) {
+            //成功后的回调
+            if (ele.length > 0) {
+              let data = ele[0].regeocodeData;
+              that.setData({
+                city: data.addressComponent.city,
+                citySelected: data.addressComponent.city,
+                latitude: res.latitude,
+                longitude: res.longitude,
+                saddress: data.formatted_address,
+                sname: data.addressComponent.province,
               });
-            },
-          });
-        } else {
-          wx.showModal({
-            title: "授权提示",
-            content: "检测到您未开启地理位置权限，是否前往开启？",
-            showCancel: true,
-            confirmText: "前往开启",
-            success(res) {
-              if (res.confirm) {
-                wx.openSetting();
-              }
-            },
-          });
-        }
+            }
+          },
+          fail: function (error) {
+            console.error(error);
+          },
+          complete: function (res) {
+            console.log(res);
+          },
+        });
       },
     });
+  },
+  getLocationNow() {
+    let that = this;
+    if (wx.getSetting.authSetting['scope.userLocation']) {
+      that.getLocation();
+    } else {
+      wx.showModal({
+        title: "授权提示",
+        content: "检测到您未开启地理位置权限，是否前往开启？",
+        showCancel: true,
+        confirmText: "前往开启",
+        success(res) {
+          if (res.confirm) {
+            wx.authorize({
+              scope: 'scope.userLocation',
+              success(){
+                that.getLocation();
+              }
+            })
+          }
+        },
+      });
+    }
   },
   //搜索关键字
   keyword(keyword) {

@@ -182,7 +182,7 @@ Page({
         longitude: wx.setStorageSync("longitude"),
       });
     } else {
-      this.getLocation();
+      this.getSeting();
     }
     // 获取购物车数据，显示TabBarBadge
     TOOLS.showTabBarBadge();
@@ -210,56 +210,59 @@ Page({
       url: `/subpackageA/pages/mapList/index`,
     });
   },
-  getLocation() {
-    let mapObject = null;
-    let that = this;
-    wx.getSetting({
+  getLocation(){
+    wx.getLocation({
+      type: "wgs84",
       success(res) {
-        if (res.authSetting["scope.userLocation"]) {
-          wx.getLocation({
-            type: "wgs84",
-            success(res) {
-              console.log("----地址----", res);
-              wx.setStorageSync("latitude", res.latitude);
-              wx.setStorageSync("longitude", res.longitude);
-              mapObject = res;
-              map.getRegeo({
-                location: res.longitude + "," + res.latitude,
-                success(ele) {
-                  //成功后的回调
-                  if (ele.length > 0) {
-                    let data = ele[0].regeocodeData;
-                    that.setData({
-                      addressNow: data.formatted_address,
-                      longitude: res.longitude,
-                      latitude: res.latitude,
-                    });
-                  }
-                },
-                fail: function (error) {
-                  console.error(error);
-                },
-                complete: function (res) {
-                  console.log(res);
-                },
+        console.log("----地址----", res);
+        wx.setStorageSync("latitude", res.latitude);
+        wx.setStorageSync("longitude", res.longitude);
+        mapObject = res;
+        map.getRegeo({
+          location: res.longitude + "," + res.latitude,
+          success(ele) {
+            //成功后的回调
+            if (ele.length > 0) {
+              let data = ele[0].regeocodeData;
+              that.setData({
+                addressNow: data.formatted_address,
+                longitude: res.longitude,
+                latitude: res.latitude,
               });
-            },
-          });
-        } else {
-          wx.showModal({
-            title: "授权提示",
-            content: "检测到您未开启地理位置权限，是否前往开启？",
-            showCancel: true,
-            confirmText: "前往开启",
-            success(res) {
-              if (res.confirm) {
-                wx.openSetting();
-              }
-            },
-          });
-        }
+            }
+          },
+          fail: function (error) {
+            console.error(error);
+          },
+          complete: function (res) {
+            console.log(res);
+          },
+        });
       },
     });
+  },
+  getSeting() {
+    let that = this;
+    if (wx.getSetting.authSetting['scope.userLocation']) {
+      that.getLocation();
+    } else {
+      wx.showModal({
+        title: "授权提示",
+        content: "检测到您未开启地理位置权限，是否前往开启？",
+        showCancel: true,
+        confirmText: "前往开启",
+        success(res) {
+          if (res.confirm) {
+            wx.authorize({
+              scope: 'scope.userLocation',
+              success(){
+                that.getLocation();
+              }
+            })
+          }
+        },
+      });
+    }
   },
   closeAdPositionIndexPop() {
     this.setData({
