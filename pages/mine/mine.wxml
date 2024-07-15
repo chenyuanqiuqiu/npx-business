@@ -6,7 +6,7 @@
             </button>
             <view class="r">
                 <view class="f-size_32 font_blod" bindtap="editNick">
-                    Hello, {{ apiUserInfoMap.base.nick ?  apiUserInfoMap.base.nick : '点击设置昵称' }}
+                    Hello, {{ apiUserInfoMap.base.nick ?  apiUserInfoMap.base.nick : '点击设置用户名' }}
                 </view>
                 <view wx:if="{{ apiUserInfoMap.userLevel }}" class="user-level">
                     <iconfont name='huangjinhuiyuan' class="icon_tap" size='34'></iconfont>

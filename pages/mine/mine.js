@@ -36,9 +36,6 @@ Page({
         TOOLS.showTabBarBadge();
       } else {
         AUTH.authorize().then((res) => {
-          if (CONFIG.bindSeller) {
-            AUTH.bindSeller();
-          }
           _this.getUserApiInfo();
           _this.getUserAmount();
           _this.orderStatistics();
@@ -80,11 +77,6 @@ Page({
         this.data.order_hx_uids.indexOf(res.data.base.id) != -1
       ) {
         _data.canHX = true; // 具有扫码核销的权限
-      }
-      if (res.data.peisongMember && res.data.peisongMember.status == 1) {
-        _data.memberChecked = false;
-      } else {
-        _data.memberChecked = true;
       }
       this.setData(_data);
     }

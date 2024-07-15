@@ -211,6 +211,8 @@ Page({
     });
   },
   getLocation(){
+    let mapObject = null;
+    let that = this;
     wx.getLocation({
       type: "wgs84",
       success(res) {
@@ -243,26 +245,30 @@ Page({
   },
   getSeting() {
     let that = this;
-    if (wx.getSetting.authSetting['scope.userLocation']) {
-      that.getLocation();
-    } else {
-      wx.showModal({
-        title: "授权提示",
-        content: "检测到您未开启地理位置权限，是否前往开启？",
-        showCancel: true,
-        confirmText: "前往开启",
-        success(res) {
-          if (res.confirm) {
-            wx.authorize({
-              scope: 'scope.userLocation',
-              success(){
-                that.getLocation();
-              }
-            })
+    wx.getSetting({
+      success(res) {
+          if (res.authSetting['scope.userLocation']) {
+            that.getLocation();
+          } else {
+            wx.showModal({
+              title: "授权提示",
+              content: "检测到您未开启地理位置权限，是否前往开启？",
+              showCancel: true,
+              confirmText: "前往开启",
+              success(res) {
+                if (res.confirm) {
+                  wx.authorize({
+                    scope: 'scope.userLocation',
+                    success(){
+                      that.getLocation();
+                    }
+                  })
+                }
+              },
+            });
           }
-        },
-      });
-    }
+      }
+    })
   },
   closeAdPositionIndexPop() {
     this.setData({

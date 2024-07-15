@@ -27,11 +27,6 @@ Page({
       ) {
         _data.canHX = true; // 具有扫码核销的权限
       }
-      if (res.data.peisongMember && res.data.peisongMember.status == 1) {
-        _data.memberChecked = false;
-      } else {
-        _data.memberChecked = true;
-      }
       this.setData(_data);
     }
   },
