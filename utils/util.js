@@ -97,41 +97,6 @@ Function.prototype.myCall = function (thisArg, ...args) {
   delete thisArg.fn;
   return result
 }
-
-const obj = {
-  age:12,
-  name:"johy",
-  hobby:"swimming"
-}
-Object.keys(obj).forEach(key=>{
-  let value = obj[key];
-  Object.defineProperty(obj,key,{
-    get(){
-      return value;
-    },
-    set(newValue){
-      if(value==newValue) return
-      value = newValue
-    }
-  })
-})
-
-const objProxy = new Proxy((obj,{
-  get(target,key,receiver){
-    return Reflect.get(target,key,receiver)
-  },
-  set(target,key,value,receiver){
-    if(target[key]!=value){
-      return Reflect.set(target,key,value,receiver)
-    }
-  },
-  has(target,key){
-    return Reflect.has(target,key)
-  },
-  deleteProperty(target,key){
-    return Reflect.deleteProperty(target,key)
-  }
-}))
 module.exports = {
   formatTime,
   debounce,
