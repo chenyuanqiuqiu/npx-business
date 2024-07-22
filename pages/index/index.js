@@ -223,6 +223,7 @@ Page({
         map.getRegeo({
           location: res.longitude + "," + res.latitude,
           success(ele) {
+            console.log(this,'-----this指向')
             //成功后的回调
             if (ele.length > 0) {
               let data = ele[0].regeocodeData;

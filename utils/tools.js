@@ -37,6 +37,7 @@ async function showTabBarBadge(noTabBarPage) {
   return number;
 }
 
+
 module.exports = {
   showTabBarBadge: showTabBarBadge,
 };
