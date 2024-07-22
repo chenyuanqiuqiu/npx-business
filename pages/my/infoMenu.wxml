@@ -4,7 +4,7 @@
     立即绑定
   </van-button>
 </van-cell>
-<van-cell wx:if="{{apiUserInfoMap.base.pwdPay}}" title="交易密码" value="修改交易密码" is-link url="/pages/pwdPay/modify" />
-<van-cell wx:else title="交易密码" value="设置交易密码" is-link url="/pages/pwdPay/set" />
+<van-cell wx:if="{{apiUserInfoMap.base.pwdPay}}" title="交易密码" value="修改交易密码" is-link url="/subpackageA/pages/pwdPay/modify" />
+<van-cell wx:else title="交易密码" value="设置交易密码" is-link url="/subpackageA/pages/pwdPay/set" />
 <van-cell title="我的收藏" is-link url="/pages/good/fav" />
 <van-cell title="修改资料" is-link url="/pages/my/info" />

@@ -85,7 +85,7 @@
         <text class="f_size_30 font_blod">{{price}}</text>
       </view>
       <view class="to-pay-btn">
-        <navigator url="/pages/toPayOrder/index?shopCarType={{shopCarType}}">去结算</navigator>
+        <navigator url="/subpackageA/pages/toPayOrder/index?shopCarType={{shopCarType}}">去结算</navigator>
       </view>
     </view>
   </view>

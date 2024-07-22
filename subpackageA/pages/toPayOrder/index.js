@@ -1,7 +1,4 @@
-const CONFIG = require("../../config.js");
 const WXAPI = require("apifm-wxapi");
-const AUTH = require("../../utils/auth.js");
-const wxpay = require("../../utils/pay.js");
 
 Date.prototype.format = function (format) {
   var date = {

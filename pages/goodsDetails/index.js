@@ -638,7 +638,7 @@ Page({
     });
     this.closePopupTap();
     wx.navigateTo({
-      url: "/pages/toPayOrder/index?orderType=buyNow",
+      url: "/subpackageA/pages/toPayOrder/index?orderType=buyNow",
     });
   },
   /**

@@ -6,7 +6,6 @@
     "pages/jiFenPage/index",
     "pages/raffle/index",
     "pages/shopDetail/index",
-    "pages/toPayOrder/index",
     "pages/category/category",
     "pages/addressAdd/index",
     "pages/search/index",
@@ -23,9 +22,6 @@
     "pages/scoreExcharge/index",
     "pages/my/infoMenu",
     "pages/my/info",
-    "pages/pwdPay/reset",
-    "pages/pwdPay/modify",
-    "pages/pwdPay/set",
     "pages/good/fav",
     "pages/sign/index",
     "pages/my/userCode",
@@ -37,7 +33,11 @@
       "root": "subpackageA",
       "name": "subpackageA",
       "pages": [
-        "pages/mapList/index"
+        "pages/mapList/index",
+        "pages/pwdPay/reset",
+        "pages/pwdPay/modify",
+        "pages/pwdPay/set",
+        "pages/toPayOrder/index"
        
       ]
     }
