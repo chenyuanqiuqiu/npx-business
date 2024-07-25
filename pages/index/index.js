@@ -3,6 +3,7 @@ const WXAPI = require("apifm-wxapi");
 const TOOLS = require("../../utils/tools.js");
 var amapFile = require("../../utils/amap-wx.js");
 const APP = getApp();
+
 /***************
  * 此处为高德地图小程序的key
  ****************/
@@ -326,7 +327,10 @@ Page({
           phoneNumber: "15678990977", //仅为示例，并非真实的电话号码
         });
       }else{
-        Toast.fail('功能正在开发中！');
+        wx.showToast({
+          title: '功能正在开发中！',
+          icon: 'error'
+        })
       }
     }
   },
