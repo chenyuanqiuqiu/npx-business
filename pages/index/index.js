@@ -325,6 +325,8 @@ Page({
         wx.makePhoneCall({
           phoneNumber: "15678990977", //仅为示例，并非真实的电话号码
         });
+      }else{
+        Toast.fail('功能正在开发中！');
       }
     }
   },

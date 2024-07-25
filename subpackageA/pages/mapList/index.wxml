@@ -86,4 +86,4 @@
     </view>
 </view>
 <!-- 选择显示 -->
-<view hidden="{{hidden}}" class="showPy">{{showPy == 'hot' ? "★" : showPy}}</view>
+<view hidden="{{hidden}}" class="showPy">{{showPy}}</view>
