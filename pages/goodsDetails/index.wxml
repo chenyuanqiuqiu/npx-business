@@ -5,7 +5,7 @@
         <view class=" iconfont icon-fanhui icon_title1" catch:tap="navbackto"></view>
         <view class=" iconfont icon-shouye icon_title2" catch:tap="switchto"></view>
       </view>
-      <view id="tabs" class="tabs-container" style="width:{{menuButtonObject.left-78}}px">
+      <view id="tabs" class="tabs-container" style="width:{{menuButtonObject.left-78}}px;height:{{navHeight-navTop}}px;">
         <van-tabs sticky bind:click="onTabsChange" active="{{ active }}" tab-class="tbbty" custom-class="tbbty" nav-class="nav_title">
           <van-tab wx:for="{{tabs}}" title="{{item.tabs_name}}" name="{{item.tabs_name}}" tab-active-class="tabActive" />
         </van-tabs>
