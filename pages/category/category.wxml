@@ -50,9 +50,10 @@
                         <van-icon wx:else name="shopping-cart-o" color="#e64340" size="48rpx" data-id="{{item.id}}" bind:click="addShopCar" />
                     </view>
                 </van-card>
-                <van-divider contentPosition="center" custom-style="line-height: 87rpx;">
+                <view style="height:300px;width:200px"></view>
+                <!-- <van-divider contentPosition="center" custom-style="line-height: 687rpx;">
                     这是底部
-                </van-divider>
+                </van-divider> -->
             </block>
         </scroll-view>
     </view>

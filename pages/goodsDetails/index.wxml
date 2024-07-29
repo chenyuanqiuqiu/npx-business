@@ -35,7 +35,7 @@
         </swiper-item>
       </swiper>
     </view>
-    <view class="goods-info">
+    <view class="goods-info" id="goods_info">
       <view class="goods-info-top-container">
         <view class="goods-profile">
           <view class="p">

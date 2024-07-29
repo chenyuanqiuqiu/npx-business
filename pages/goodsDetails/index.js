@@ -24,7 +24,7 @@ Page({
         topHeight: 0,
       },
     ],
-    isSticky: true,
+    isSticky: false,
     createTabs: false, //绘制tabs
     goodsDetail: {},
     hasMoreSelect: false,
@@ -45,33 +45,53 @@ Page({
     if (this.data.tabclicked) {
       return;
     }
-    //计算页面 轮播图、详情、评价(砍价)view 高度
-    this.getTopHeightFunction();
-    var tabsHeight = this.data.tabsHeight; //顶部距离（tabs高度）
-    if (
-      this.data.tabs[0].topHeight - tabsHeight <= 0 &&
-      0 < this.data.tabs[1].topHeight - tabsHeight
-    ) {
-      //临界值，根据自己的需求来调整
-      this.setData({
-        active: this.data.tabs[0].tabs_name, //设置当前标签栏
-      });
-    } else if (this.data.tabs.length == 2) {
-      this.setData({
-        active: this.data.tabs[1].tabs_name,
-      });
-    } else if (
-      this.data.tabs[1].topHeight - tabsHeight <= 0 &&
-      0 < this.data.tabs[2].topHeight - tabsHeight
-    ) {
-      this.setData({
-        active: this.data.tabs[1].tabs_name,
-      });
-    } else if (this.data.tabs[2].topHeight - tabsHeight <= 0) {
-      this.setData({
-        active: this.data.tabs[2].tabs_name,
-      });
-    }
+    var query = wx.createSelectorQuery();
+    query
+      .select("#goods_info")
+      .boundingClientRect((rect) => {
+        if (!rect) {
+          return;
+        }
+        if(rect.top<15){
+          this.setData({
+            isSticky:true
+          })
+          //计算页面 轮播图、详情、评价(砍价)view 高度
+          // this.getTopHeightFunction();
+          var tabsHeight = this.data.tabsHeight; //顶部距离（tabs高度）
+          if (
+            this.data.tabs[0].topHeight - tabsHeight <= 0 &&
+            0 < this.data.tabs[1].topHeight - tabsHeight
+          ) {
+            //临界值，根据自己的需求来调整
+            this.setData({
+              active: this.data.tabs[0].tabs_name, //设置当前标签栏
+            });
+          } else if (this.data.tabs.length == 2) {
+            this.setData({
+              active: this.data.tabs[1].tabs_name,
+            });
+          } else if (
+            this.data.tabs[1].topHeight - tabsHeight <= 0 &&
+            0 < this.data.tabs[2].topHeight - tabsHeight
+          ) {
+            this.setData({
+              active: this.data.tabs[1].tabs_name,
+            });
+          } else if (this.data.tabs[2].topHeight - tabsHeight <= 0) {
+            this.setData({
+              active: this.data.tabs[2].tabs_name,
+            });
+          }
+        } else {
+          this.setData({
+            isSticky:false
+          })
+        }
+        console.log("------高度----",rect)
+      })
+      .exec();
+    
   },
   onLoad(e) {
     // e.id = 122843

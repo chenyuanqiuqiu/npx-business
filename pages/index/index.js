@@ -183,7 +183,9 @@ Page({
         longitude: wx.setStorageSync("longitude"),
       });
     } else {
-      this.getSeting();
+      setTimeout(()=>{
+        this.getSeting();
+      },1500)
     }
     // 获取购物车数据，显示TabBarBadge
     TOOLS.showTabBarBadge();
@@ -212,7 +214,7 @@ Page({
     });
   },
   getLocation(){
-    let mapObject = null;
+    var mapObject = null;
     let that = this;
     wx.getLocation({
       type: "wgs84",

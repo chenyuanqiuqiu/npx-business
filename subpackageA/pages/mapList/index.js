@@ -201,7 +201,7 @@ Page({
   touchstart(e) {
     this.setData({
       index: e.currentTarget.dataset.index,
-      Mstart: e.changedTouches[0].pageX,//pageX：触摸目标在页面中的x坐标。
+      Mstart: e.changedTouches[0].pageX,//pageX：触摸目标在页面中的x坐标。clientX：触摸目标在视口中的x坐标。screenX：触摸目标在屏幕中的x坐标。
     });
   },
   touchmove(e) {

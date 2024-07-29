@@ -6,8 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isSticky:false,
     info: 0,
-    active: 0,
+    active: "one",
     nameLike: "",
     hide_good_box: true,
     feiBox: "",
@@ -80,7 +81,13 @@ Page({
     });
     this.getGoodsList("sousuo");
   },
+  clickTab(e){
+    let active = e.currentTarget.dataset.tab;
+    this.setData({
+      active
+    })
 
+  },
   async categories() {
     wx.showLoading({
       title: "",

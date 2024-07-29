@@ -1,41 +1,46 @@
-<van-sticky class="bg_c_c1af52">
-    <view style="height:{{menuButtonObject.height}}px;padding-top:{{navTop}}px" class="d-flex bg_c_c1af52">
+<van-sticky class="bg_c_bdd0e0">
+    <view style="height:{{menuButtonObject.height}}px;padding-top:{{navTop}}px" class="d-flex bg_c_bdd0e0 sticky">
         <view class="title_nav">
             <view class=" iconfont icon-fanhui icon_title1" catch:tap="navbackto"></view>
         </view>
         <view class="search-placeholder input" style="width:{{menuButtonObject.left-70}}px" bindtap="goSearch">
-            <van-search value="{{ nameLike }}" bind:search="bindconfirm" placeholder="请输入搜索关键词" custom-class="search_cus bg_c_c1af52" input-class="field_cc f_size_24" />
+            <van-search value="{{ nameLike }}" bind:search="bindconfirm" placeholder="请输入搜索关键词" custom-class="search_cus bg_c_bdd0e0" input-class="field_cc f_size_24" />
         </view>
     </view>
 </van-sticky>
-<view class="contain_ii">
-    <view class="title_cld">
-        <view class="one_hyhu">
-            <view>
-                <view class="f_size_30 font_bold iudbc">{{shopDetail.name}}</view>
-                <view class="d-flex">
-                    <view class="color_ea7800 f_size_28 font_blod p_15_fen">4.8分</view>
-                    <view class="f_size_24 color_5f5a5a p_15_fen">
-                        月销：{{shopDetail.numberOrder}}
+<view class="content_op">
+    <view class="contain_ii">
+        <view class="title_cld">
+            <view class="one_hyhu">
+                <view>
+                    <view class="f_size_30 font_bold iudbc">{{shopDetail.name}}</view>
+                    <view class="d-flex">
+                        <view class="color_ea7800 f_size_28 font_blod p_15_fen">4.8分</view>
+                        <view class="f_size_24 color_5f5a5a p_15_fen">
+                            月销：{{shopDetail.numberOrder}}
+                        </view>
+                        <view class="f_size_22 color_5f5a5a">营业时间：{{shopDetail.openingHours}}</view>
                     </view>
-                    <view class="f_size_22 color_5f5a5a">营业时间：{{shopDetail.openingHours}}</view>
+                </view>
+                <view>
+                    <image wx:if="{{shopDetail.pic}}" mode="aspectFill" src="{{shopDetail.pic}}" class="pic_url" />
+                    <image wx:else mode="aspectFill" src="/images/nav/dukan.png" class="pic_url" />
                 </view>
             </view>
-            <view>
-                <image wx:if="{{shopDetail.pic}}" mode="aspectFill" src="{{shopDetail.pic}}" class="pic_url" />
-                <image wx:else mode="aspectFill" src="/images/nav/dukan.png" class="pic_url" />
+            <view class="display_f">
+                <view wx:if="{{shopDetail.openWaimai}}" class="tags_class tag">支持配送</view>
+                <view wx:if="{{shopDetail.openZiqu}}" class="tags_class tag">支持自取</view>
+                <view class="mfsf_class">免配送费</view>
             </view>
         </view>
-        <view class="display_f">
-            <view wx:if="{{shopDetail.openWaimai}}" class="tags_class tag">支持配送</view>
-            <view wx:if="{{shopDetail.openZiqu}}" class="tags_class tag">支持自取</view>
-            <view class="mfsf_class">免配送费</view>
-        </view>
     </view>
-</view>
-<van-tabs active="{{ active }}" bind:change="onChange" sticky>
-    <van-tab title="商品">
-        <view class="main">
+    <view class="tab_class">
+        <view class="tab_item {{active=='one' ? 'tab_active' :''}}" data-tab="one" bindtap="clickTab">全部分类</view>
+        <view class="tab_item {{active=='two' ? 'tab_active' :''}}" data-tab="two" bindtap="clickTab">评价</view>
+        <view class="tab_item {{active=='three' ? 'tab_active' :''}}" data-tab="three" bindtap="clickTab">商家</view>
+    </view>
+    <scroll-view class="w-100 h_100 flex-1" scroll-y="{{true}}">
+        <view class="main" wx:if="{{active == 'one'}}">
             <block wx:if="{{firstCategories && firstCategories.length>0}}">
                 <scroll-view class="category-container" scroll-y="true" scroll-with-animation="true" scroll-into-view="{{ aaa }}">
                     <van-sidebar custom-class="sidebar-l" active-key="{{ activeCategory }}">
@@ -44,7 +49,6 @@
                 </scroll-view>
                 <scroll-view class="goods-container" scroll-y="true" scroll-top="{{scrolltop}}" wx:if='{{onLoadStatus}}' bindscrolltolower="goodsGoBottom">
                     <van-empty wx:if="{{categoryMod != 2 &&  !currentGoods}}" description="暂无商品" />
-                    <!-- 显示右侧商品 -->
                     <wxs module="goodsDetailPage">
                     module.exports = {
                         url : function(item) {
@@ -69,73 +73,71 @@
                 </van-empty>
             </block>
         </view>
-    </van-tab>
-    <van-tab title="评价">
-        <block>
+        <block wx:if="{{active == 'two'}}">
             <van-empty description="暂无评价" style="width:100%">
                 <van-button round type="danger" class="bottom-button">刷新试试</van-button>
             </van-empty>
         </block>
-    </van-tab>
-    <van-tab title="详情">
-        <view class="mian_all">
-            <view class="main_q">
-                <text class="f_size_28">{{shopDetail.name}}</text>
-                <iconfont name="dianhua" size='65' class="p_r_11" catchtap="callPhone"></iconfont>
-            </view>
-            <view class="d-flex" bindtap="goMap" wx:if="{{shopDetail.address}}">
-                <view class='iconfont icon-shouhuodizhi icon_22'></view>
-                <text class="f_size_22 color_717171">{{shopDetail.address}}</text>
-                <view class="iconfont icon-jiantou2 icon_22"></view>
-            </view>
-            <view class="d-flex">
-                <view class='iconfont icon-shijian icon_22'></view>
-                <text class="f_size_22 color_717171">周一至周日  {{shopDetail.openingHours}}</text>
-            </view>
-            <view class="d-flex">
-                <image mode="aspectFill" src="{{shopDetail.pic}}" class="pic_logo" />
-                <image mode="aspectFill" src="{{shopDetail.logo}}" class="pic_logo" />
-            </view>
-        </view>
-        <view class="mian_all">
-            <view class="main_q">
-                <text class="f_size_28">商家承诺</text>
-            </view>
-            <view class="d-flex mtt">
-                <text class="f_size_22  mm_oj">商品安全</text>
-                <view class="f_size_22 color_717171 mm_oj d-flex">
-                    <view class='iconfont icon-qupiao icon_24'></view>
-                    <text>亮证经营</text>
+        <block wx:if="{{active=='three'}}">
+            <view class="mian_all">
+                <view class="main_q">
+                    <text class="f_size_28">{{shopDetail.name}}</text>
+                    <iconfont name="dianhua" size='65' class="p_r_11" catchtap="callPhone"></iconfont>
                 </view>
-                <view class="f_size_22 color_717171 d-flex">
-                    <view class='iconfont icon-shouhouwuyou icon_24'></view>
-                    <text>售后无忧</text>
+                <view class="d-flex" bindtap="goMap" wx:if="{{shopDetail.address}}">
+                    <view class='iconfont icon-shouhuodizhi icon_22'></view>
+                    <text class="f_size_22 color_717171">{{shopDetail.address}}</text>
+                    <view class="iconfont icon-jiantou2 icon_22"></view>
+                </view>
+                <view class="d-flex">
+                    <view class='iconfont icon-shijian icon_22'></view>
+                    <text class="f_size_22 color_717171">周一至周日  {{shopDetail.openingHours}}</text>
+                </view>
+                <view class="d-flex">
+                    <image mode="aspectFill" src="{{shopDetail.pic}}" class="pic_logo" />
+                    <image mode="aspectFill" src="{{shopDetail.logo}}" class="pic_logo" />
                 </view>
             </view>
-            <view class="d-flex">
-                <text class="f_size_22  mm_oj">基础服务</text>
-                <view class="f_size_22 color_717171 mm_oj d-flex">
-                    <view class='iconfont icon-baoyou icon_24'></view>
-                    <text>全国包邮</text>
+            <view class="mian_all">
+                <view class="main_q">
+                    <text class="f_size_28">商家承诺</text>
                 </view>
-                <view class="f_size_22 color_717171 d-flex">
-                    <view class='iconfont icon-shangjiaguanli icon_24'></view>
-                    <text>先享后付</text>
+                <view class="d-flex mtt">
+                    <text class="f_size_22  mm_oj">商品安全</text>
+                    <view class="f_size_22 color_717171 mm_oj d-flex">
+                        <view class='iconfont icon-qupiao icon_24'></view>
+                        <text>亮证经营</text>
+                    </view>
+                    <view class="f_size_22 color_717171 d-flex">
+                        <view class='iconfont icon-shouhouwuyou icon_24'></view>
+                        <text>售后无忧</text>
+                    </view>
+                </view>
+                <view class="d-flex">
+                    <text class="f_size_22  mm_oj">基础服务</text>
+                    <view class="f_size_22 color_717171 mm_oj d-flex">
+                        <view class='iconfont icon-baoyou icon_24'></view>
+                        <text>全国包邮</text>
+                    </view>
+                    <view class="f_size_22 color_717171 d-flex">
+                        <view class='iconfont icon-shangjiaguanli icon_24'></view>
+                        <text>先享后付</text>
+                    </view>
                 </view>
             </view>
-        </view>
-        <view class="mian_all">
-            <view class="main_q">
-                <text class="f_size_28 mm_oj">公告</text>
+            <view class="mian_all">
+                <view class="main_q">
+                    <text class="f_size_28 mm_oj">公告</text>
+                </view>
+                <view class="d-flex">
+                    <text class="f_size_22 mm_oj color_717171">
+                        商品是为了出售而生产的劳动成果，人类社会生产力发展到一定历史阶段的产物，用于交换的劳动产品。恩格斯对此进行了科学的总结：商品“首先是私人产品。但是，只有这些私人产品不是为自己消费，而是为他人的消费，即为社会的消费而生产时，
+                    </text>
+                </view>
             </view>
-            <view class="d-flex">
-                <text class="f_size_22 mm_oj color_717171">
-                    商品是为了出售而生产的劳动成果，人类社会生产力发展到一定历史阶段的产物，用于交换的劳动产品。恩格斯对此进行了科学的总结：商品“首先是私人产品。但是，只有这些私人产品不是为自己消费，而是为他人的消费，即为社会的消费而生产时，
-                </text>
-            </view>
-        </view>
-    </van-tab>
-</van-tabs>
+        </block>
+    </scroll-view>
+</view>
 <view class="float-btn" catchtap="toCart">
     <van-icon name="cart-o" info="{{info>0 ? info : ''}}" size="30px" color="#ffffff" />
 </view>

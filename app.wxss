@@ -19,8 +19,8 @@ page {
 .flex-1{
   flex: 1;
 }
-.bg_c_c1af52{
-  background-color: #c1af52;
+.bg_c_bdd0e0{
+  background-color: #bdd0e0;
 }
 .d-flex{
   display: flex;
