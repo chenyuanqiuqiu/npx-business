@@ -26,7 +26,7 @@
                         <view class="font_blod">配送服务</view>
                     </view>
                     <view class="d-flex flex-w">
-                        <view class="tab_i {{item.selected ? 'choose_class' : 'nochoose_class'}}" wx:for="{{peisongList}}" wx:key="id" data-value="{{item.id}}" data-isSelected="{{item.selected}}" data-index="{{index}}" bindtap="handelPeisong">
+                        <view class="tab_i {{item.selected ? 'choose_class' : 'nochoose_class'}}" wx:for="{{peisongList}}" wx:key="id" data-value="{{item.value}}" data-isSelected="{{item.selected}}" data-index="{{index}}" bindtap="handelPeisong">
                             <iconfont name='{{item.name}}' size='35' class="p_r_11"></iconfont>
                             <view>{{item.label}}</view>
                         </view>

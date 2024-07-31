@@ -250,7 +250,7 @@ Component({
       let value = e.currentTarget.dataset.value;
       let velocityList = this.data.velocityList;
       for (let item of velocityList) {
-        if (item.value == value) {
+        if (item.id == value) {
           item.selected = !isSelected;
         } else {
           if (!isSelected) {
