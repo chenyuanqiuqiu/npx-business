@@ -10,10 +10,10 @@ Page({
       return day;
     },
   },
-  onLoad: function (options) {
+  onLoad() {
     this.scoreSignLogs();
   },
-  onShow: function () {
+  onShow () {
     AUTH.checkHasLogined().then((isLogined) => {
       if (!isLogined) {
         AUTH.login(this);
