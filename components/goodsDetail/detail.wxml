@@ -41,8 +41,12 @@
                         <view class=" tab_i {{item.selected ? 'choose_class' : 'nochoose_class'}}" wx:for="{{velocityList}}" wx:key="id" data-value="{{item.id}}" data-isSelected="{{item.selected}}" bindtap="handelSudu">
                             <image src="{{item.icon}}" mode="aspectFill" class="msg_detail" />
                             <view>{{item.name}}</view>
+                            <slot name="content" :item="{{item}}"></slot>
                         </view>
                     </view>
+                </block>
+                <block>
+                    <slot name="choose"></slot>
                 </block>
                 <block>
                     <view class="d-flex mart_10">

@@ -13,7 +13,7 @@
     </view>
   </view>
 </van-sticky>
-<van-sticky style="position:absolute" wx:if="{{!isSticky}}">
+<!-- <van-sticky style="position:absolute" wx:if="{{!isSticky}}">
   <view>
     <view class=" d-flex" style="height:{{navHeight}}px;padding-top:{{navTop}}px">
       <view class="d-flex title_nav">
@@ -22,7 +22,7 @@
       </view>
     </view>
   </view>
-</van-sticky>
+</van-sticky> -->
 <view class="container">
   <scroll-view class="scroll-container" scroll-into-view="{{toView}}" scroll-y="true" scroll-with-animation="true" bindscroll="bindscroll">
     <view class="swiper-container" id="swiper-container">
